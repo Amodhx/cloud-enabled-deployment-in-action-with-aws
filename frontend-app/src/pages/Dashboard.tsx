@@ -22,18 +22,18 @@ import {
   Info as InfoIcon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { courseService, mediaService } from '../services/api';
-// import { courseService, studentService, mediaService } from '../services/api';
+// import { courseService, mediaService } from '../services/api';
+import { courseService, studentService, mediaService } from '../services/api';
 
 interface DashboardStats {
   courses: number;
-  // students: number;
+  students: number;
   mediaFiles: number;
 }
 
 const Dashboard: React.FC = () => {
-  // const [stats, setStats] = useState<DashboardStats>({ courses: 0, students: 0, mediaFiles: 0 });
-  const [stats, setStats] = useState<DashboardStats>({ courses: 0, mediaFiles: 0 });
+  const [stats, setStats] = useState<DashboardStats>({ courses: 0, students: 0, mediaFiles: 0 });
+  // const [stats, setStats] = useState<DashboardStats>({ courses: 0, mediaFiles: 0 });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [aboutModalOpen, setAboutModalOpen] = useState(false);
@@ -43,15 +43,15 @@ const Dashboard: React.FC = () => {
     const fetchStats = async () => {
       try {
         setLoading(true);
-        const [courses,  mediaFiles] = await Promise.all([
+        const [courses, students ,  mediaFiles] = await Promise.all([
           courseService.getAll(),
-          // studentService.getAll(),
+          studentService.getAll(),
           mediaService.getAll(),
         ]);
 
         setStats({
           courses: courses.length,
-          // students: students.length,
+          students: students.length,
           mediaFiles: mediaFiles.length,
         });
       } catch (err) {
@@ -157,8 +157,8 @@ const Dashboard: React.FC = () => {
         <Grid item xs={12} sm={6} md={4}>
           <StatCard
             title="Students"
-            // value={stats.students}
-              value={12}
+            value={stats.students}
+              // value={12}
             icon={<PeopleIcon sx={{ color: 'white' }} />}
             color="#dc004e"
             onClick={() => navigate('/students')}
