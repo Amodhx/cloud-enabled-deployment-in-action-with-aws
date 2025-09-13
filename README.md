@@ -1,52 +1,63 @@
-# Cloud Enabled Deployment In Action with AWS
+# 🌩️ Cloud Enabled Deployment In Action with AWS & GCP
 
-This repository contains four projects:
+This repository demonstrates a **cloud-enabled microservices architecture** deployed with **AWS** and **GCP**.
 
-- course-service (Spring Boot + MySQL)
-- student-service (Spring Boot + MongoDB)
-- media-service (Spring Boot + Local file storage, can be extended to S3/MinIO)
-- frontend-app (React + TypeScript)
+It contains **four projects**:
 
-## Backend Services
+- **course-service** (Spring Boot + MySQL + AWS/GCP integration)
+- **student-service** (Spring Boot + MongoDB + AWS integration)
+- **media-service** (Spring Boot + Local file storage, can be extended to AWS S3 / MinIO)
+- **frontend-app** (React + TypeScript + MUI + Axios + Vite)
+
+---
+
+## 📂 Projects Overview
 
 ### 1. course-service
-- Entity: Course(id, name, duration)
-- Endpoints:
-  - GET /courses
-  - GET /courses/{id}
-  - POST /courses
-  - DELETE /courses/{id}
-- Default port: 8081
-- Configure MySQL settings
+- **Entity:** `Course(id, name, duration)`
+- **Endpoints:**
+    - `GET /courses`
+    - `GET /courses/{id}`
+    - `POST /courses`
+    - `DELETE /courses/{id}`
+- **Default port:** `8081`
+- **Database:** MySQL (Cloud-enabled with AWS RDS and GCP Cloud SQL)
 
 ### 2. student-service
-- Document: Student(registrationNumber, fullName, address, contact, email)
-- Endpoints:
-  - GET /students
-  - GET /students/{id}
-  - POST /students
-  - DELETE /students/{id}
-- Default port: 8082
-- Configure MongoDB settings
+- **Document:** `Student(registrationNumber, fullName, address, contact, email)`
+- **Endpoints:**
+    - `GET /students`
+    - `GET /students/{id}`
+    - `POST /students`
+    - `DELETE /students/{id}`
+- **Default port:** `8082`
+- **Database:** MongoDB (Cloud-enabled with AWS DocumentDB)
 
 ### 3. media-service
-- Resource: files
-- Endpoints:
-  - POST /files (multipart/form-data: file)
-  - GET /files (list)
-  - GET /files/{id} (fetch)
-  - DELETE /files/{id} (delete)
-- Default port: 8083
-- Uses local disk storage at `./data/media` by default (override with env var `MEDIA_STORAGE_DIR`).
+- **Resource:** Files
+- **Endpoints:**
+    - `POST /files` (upload, multipart/form-data: file)
+    - `GET /files` (list all files)
+    - `GET /files/{id}` (fetch file)
+    - `DELETE /files/{id}` (delete file)
+- **Default port:** `8083`
+- **Storage:** Local disk at `./data/media` (can be overridden with env var `MEDIA_STORAGE_DIR`).  
+  Extendable to **AWS S3** or **MinIO**.
 
-## Frontend (frontend-app)
-- React + TypeScript + MUI + Axios + Vite app with 3 sections: Courses, Students, Media
-- Scripts:
-  - npm run dev (Vite dev server)
-  - npm run build (TypeScript build + Vite build)
-  - npm run preview (Preview built app)
+### 4. frontend-app
+- **Stack:** React + TypeScript + MUI + Axios + Vite
+- **Sections:** Courses, Students, Media
+- **Scripts:**
+    - `npm install`
+    - `npm run dev` → Start Vite dev server
+    - `npm run build` → Build production-ready app
+    - `npm run preview` → Preview production build
 
-## Build
+---
 
-- Backend: run `mvn -q -e -DskipTests package` at repo root to build services.
-- Frontend: run `npm install` then `npm run dev` inside `frontend-app`.
+## ⚙️ Build & Run
+
+### Backend Services
+At repo root:
+```bash
+mvn -q -e -DskipTests package
